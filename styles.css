@@ -462,4 +462,24 @@
 .venice-light-theme .venice-expanded-summary,
 .venice-light-mode .venice-expanded-summary {
   color: #0F0F0F;
+}
+
+/* Style for the "Powered by Venice AI" text */
+#venice-powered-by {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 12px;
+  color: #606060;
+  margin-left: 10px;
+}
+
+/* Dark mode styles for "Powered by Venice AI" text */
+.venice-dark-theme #venice-powered-by,
+#venice-powered-by.venice-dark-mode {
+  color: #aaa;
+}
+
+/* Light mode styles for "Powered by Venice AI" text */
+.venice-light-theme #venice-powered-by,
+#venice-powered-by.venice-light-mode {
+  color: #606060;
 } 

@@ -1,4 +1,4 @@
-# YouTube Transcript Summarizer
+# YouTube Transcript Summarizer (Venice AI)
 
 A powerful Chrome extension that uses Venice AI to summarize YouTube video transcripts and answer questions about video content - all without watching the entire video!
 

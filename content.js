@@ -63,6 +63,7 @@ function checkAndApplyTheme() {
     const expandButton = document.querySelector('#venice-expand-button');
     const askInput = document.querySelector('#venice-ask-input');
     const askButton = document.querySelector('#venice-ask-button');
+    const poweredBy = document.querySelector('#venice-powered-by');
     
     // Remove any existing theme classes
     document.body.classList.remove('venice-dark-theme', 'venice-light-theme');
@@ -73,6 +74,7 @@ function checkAndApplyTheme() {
     if (expandButton) expandButton.classList.remove('venice-dark-mode', 'venice-light-mode');
     if (askInput) askInput.classList.remove('venice-dark-mode', 'venice-light-mode');
     if (askButton) askButton.classList.remove('venice-dark-mode', 'venice-light-mode');
+    if (poweredBy) poweredBy.classList.remove('venice-dark-mode', 'venice-light-mode');
     
     if (userThemePreference === 'auto') {
       // Auto mode - detect YouTube's current theme
@@ -86,6 +88,7 @@ function checkAndApplyTheme() {
         if (expandButton) expandButton.classList.add('venice-dark-mode');
         if (askInput) askInput.classList.add('venice-dark-mode');
         if (askButton) askButton.classList.add('venice-dark-mode');
+        if (poweredBy) poweredBy.classList.add('venice-dark-mode');
       } else {
         // Apply light theme
         document.body.classList.add('venice-light-theme');
@@ -96,6 +99,7 @@ function checkAndApplyTheme() {
         if (expandButton) expandButton.classList.add('venice-light-mode');
         if (askInput) askInput.classList.add('venice-light-mode');
         if (askButton) askButton.classList.add('venice-light-mode');
+        if (poweredBy) poweredBy.classList.add('venice-light-mode');
       }
     } else if (userThemePreference === 'dark') {
       // User prefers dark mode
@@ -107,6 +111,7 @@ function checkAndApplyTheme() {
       if (expandButton) expandButton.classList.add('venice-dark-mode');
       if (askInput) askInput.classList.add('venice-dark-mode');
       if (askButton) askButton.classList.add('venice-dark-mode');
+      if (poweredBy) poweredBy.classList.add('venice-dark-mode');
     } else {
       // User prefers light mode
       document.body.classList.add('venice-light-theme');
@@ -117,6 +122,7 @@ function checkAndApplyTheme() {
       if (expandButton) expandButton.classList.add('venice-light-mode');
       if (askInput) askInput.classList.add('venice-light-mode');
       if (askButton) askButton.classList.add('venice-light-mode');
+      if (poweredBy) poweredBy.classList.add('venice-light-mode');
     }
   });
   
@@ -217,6 +223,8 @@ function addSummaryButton() {
   
   // Create left side container for summary button
   const leftContainer = document.createElement('div');
+  leftContainer.style.display = 'flex';
+  leftContainer.style.alignItems = 'center';
   
   // Create "Get Summary" button
   const button = document.createElement('button');
@@ -224,8 +232,17 @@ function addSummaryButton() {
   button.textContent = 'Get Summary';
   button.addEventListener('click', handleSummaryRequest);
   
-  // Add summary button to left container
+  // Create "Powered by" text
+  const poweredByText = document.createElement('span');
+  poweredByText.id = 'venice-powered-by';
+  poweredByText.textContent = 'Powered by Venice AI';
+  poweredByText.style.marginLeft = '10px';
+  poweredByText.style.fontSize = '12px';
+  poweredByText.style.opacity = '0.8';
+  
+  // Add summary button and powered by text to left container
   leftContainer.appendChild(button);
+  leftContainer.appendChild(poweredByText);
   
   // Create right side container for ask components
   const rightContainer = document.createElement('div');
