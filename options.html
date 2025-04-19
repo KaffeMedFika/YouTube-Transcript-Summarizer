@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Transcript Summarizer - Settings</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    h1 {
+      color: #CC0000;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #3367D6;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .success {
+      background-color: #E6F4EA;
+      color: #137333;
+    }
+    .error {
+      background-color: #FCE8E6;
+      color: #C5221F;
+    }
+    .instructions {
+      background-color: #F1F3F4;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 30px;
+    }
+    .instructions h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    .instructions ol {
+      padding-left: 20px;
+    }
+    .theme-options {
+      display: flex;
+      gap: 15px;
+    }
+    .theme-option {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .theme-option input {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>YouTube Transcript Summarizer Settings</h1>
+  
+  <div class="form-group">
+    <label for="apiKey">Venice AI API Key:</label>
+    <input type="text" id="apiKey" placeholder="Enter your Venice AI API key">
+  </div>
+  
+  <div class="form-group">
+    <label>Theme Settings:</label>
+    <div class="theme-options">
+      <label class="theme-option">
+        <input type="radio" name="theme" value="auto" checked> Auto (Match YouTube)
+      </label>
+      <label class="theme-option">
+        <input type="radio" name="theme" value="light"> Light
+      </label>
+      <label class="theme-option">
+        <input type="radio" name="theme" value="dark"> Dark
+      </label>
+    </div>
+  </div>
+  
+  <button id="saveButton">Save</button>
+  
+  <div id="status" class="status" style="display: none;"></div>
+  
+  <div class="instructions">
+    <h2>How to Get a Venice AI API Key</h2>
+    <ol>
+      <li>Go to <a href="https://venice.ai/chat?ref=QMAqSM" target="_blank">Venice AI</a> and create an account or log in</li>
+      <li>Navigate to your account settings or API section</li>
+      <li>Generate a new API key</li>
+      <li>Copy the API key and paste it into the field above</li>
+      <li>Click "Save" to store your API key</li>
+    </ol>
+    <p><strong>Note:</strong> Your API key is stored securely in your browser's local storage and is only used to make requests to the Venice AI API.</p>
+  </div>
+  
+  <script src="options.js"></script>
+</body>
+</html> 

@@ -1,0 +1,465 @@
+/* YouTube Transcript Summarizer - Styles */
+/* This CSS file styles the extension's UI elements on YouTube pages */
+
+/* Container for all our extension elements - Light mode (default) */
+#venice-summary-container {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  font-family: 'Roboto', Arial, sans-serif;
+  max-width: 100%;
+  box-sizing: border-box;
+  width: calc(100% - 20px);
+}
+
+/* Style for the "Get Summary" button */
+#venice-summary-button {
+  background-color: #CC0000;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+
+#venice-summary-button:hover {
+  background-color: #990000;
+}
+
+#venice-summary-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Style for the "Close Summary" button */
+#venice-close-button {
+  background-color: #606060;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-right: 10px;
+}
+
+#venice-close-button:hover {
+  background-color: #404040;
+}
+
+/* Style for the "Expand Summary" button */
+#venice-expand-button {
+  background-color: #2ba640;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#venice-expand-button:hover {
+  background-color: #1f8830;
+}
+
+#venice-expand-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Styles for the ask box */
+#venice-ask-container {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+#venice-ask-input {
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  width: 180px;
+  outline: none;
+  transition: border-color 0.2s;
+  height: 16px;
+  box-sizing: content-box;
+}
+
+#venice-ask-input:focus {
+  border-color: #CC0000;
+}
+
+#venice-ask-button {
+  background-color: #CC0000;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  height: 16px;
+  box-sizing: content-box;
+}
+
+#venice-ask-button:hover {
+  background-color: #990000;
+}
+
+#venice-ask-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Container for the summary results - Light mode (default) */
+#venice-summary-results {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #e5e5e5;
+  line-height: 1.5;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Heading in the results area - Light mode (default) */
+#venice-summary-results h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #0F0F0F;
+}
+
+/* Paragraph text in the results area - Light mode (default) */
+#venice-summary-results p {
+  margin: 0;
+  font-size: 14px;
+  color: #0F0F0F;
+}
+
+/* Error messages */
+#venice-summary-results .venice-error {
+  color: #CC0000;
+  font-weight: 500;
+}
+
+/* Loading message - Light mode (default) */
+#venice-summary-results:has(p:contains("Loading")) {
+  background-color: #f8f9fa;
+  color: #666;
+  font-style: italic;
+}
+
+/* Dark mode styles - using both body class and element classes for maximum compatibility */
+.venice-dark-theme #venice-summary-container,
+#venice-summary-container.venice-dark-mode {
+  background-color: #212121;
+  border: 1px solid #383838;
+  color: #fff;
+}
+
+.venice-dark-theme #venice-summary-button,
+#venice-summary-button.venice-dark-mode {
+  background-color: #CC0000;
+  color: white;
+}
+
+.venice-dark-theme #venice-summary-button:hover,
+#venice-summary-button.venice-dark-mode:hover {
+  background-color: #990000;
+}
+
+.venice-dark-theme #venice-summary-button:disabled,
+#venice-summary-button.venice-dark-mode:disabled {
+  background-color: #444;
+  color: #aaa;
+}
+
+/* Dark mode styles for ask box */
+.venice-dark-theme #venice-ask-input,
+#venice-ask-input.venice-dark-mode {
+  background-color: #181818;
+  border-color: #383838;
+  color: #fff;
+}
+
+.venice-dark-theme #venice-ask-input:focus,
+#venice-ask-input.venice-dark-mode:focus {
+  border-color: #CC0000;
+}
+
+.venice-dark-theme #venice-ask-button,
+#venice-ask-button.venice-dark-mode {
+  background-color: #CC0000;
+}
+
+.venice-dark-theme #venice-ask-button:hover,
+#venice-ask-button.venice-dark-mode:hover {
+  background-color: #990000;
+}
+
+.venice-dark-theme #venice-ask-button:disabled,
+#venice-ask-button.venice-dark-mode:disabled {
+  background-color: #444;
+  color: #aaa;
+}
+
+.venice-dark-theme #venice-close-button,
+#venice-close-button.venice-dark-mode {
+  background-color: #4d4d4d;
+  color: white;
+}
+
+.venice-dark-theme #venice-close-button:hover,
+#venice-close-button.venice-dark-mode:hover {
+  background-color: #666666;
+}
+
+.venice-dark-theme #venice-expand-button,
+#venice-expand-button.venice-dark-mode {
+  background-color: #2ba640;
+  color: white;
+}
+
+.venice-dark-theme #venice-expand-button:hover,
+#venice-expand-button.venice-dark-mode:hover {
+  background-color: #1f8830;
+}
+
+.venice-dark-theme #venice-expand-button:disabled,
+#venice-expand-button.venice-dark-mode:disabled {
+  background-color: #444;
+  color: #aaa;
+}
+
+.venice-dark-theme #venice-summary-results,
+#venice-summary-results.venice-dark-mode {
+  background-color: #181818;
+  border: 1px solid #383838;
+}
+
+.venice-dark-theme #venice-summary-results h3,
+#venice-summary-results.venice-dark-mode h3 {
+  color: #fff;
+}
+
+.venice-dark-theme #venice-summary-results p,
+#venice-summary-results.venice-dark-mode p {
+  color: #aaa;
+}
+
+.venice-dark-theme #venice-summary-results .venice-error,
+#venice-summary-results.venice-dark-mode .venice-error {
+  color: #ff6c6c;
+}
+
+.venice-dark-theme #venice-summary-results:has(p:contains("Loading")),
+#venice-summary-results.venice-dark-mode:has(p:contains("Loading")) {
+  background-color: #212121;
+  color: #aaa;
+}
+
+/* Force light mode styles */
+.venice-light-theme #venice-summary-container,
+#venice-summary-container.venice-light-mode {
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  color: #0F0F0F;
+}
+
+.venice-light-theme #venice-summary-button,
+#venice-summary-button.venice-light-mode {
+  background-color: #CC0000;
+  color: white;
+}
+
+.venice-light-theme #venice-summary-button:hover,
+#venice-summary-button.venice-light-mode:hover {
+  background-color: #990000;
+}
+
+.venice-light-theme #venice-summary-button:disabled,
+#venice-summary-button.venice-light-mode:disabled {
+  background-color: #cccccc;
+  color: #666;
+}
+
+/* Light mode styles for ask box */
+.venice-light-theme #venice-ask-input,
+#venice-ask-input.venice-light-mode {
+  background-color: white;
+  border-color: #ccc;
+  color: #0F0F0F;
+}
+
+.venice-light-theme #venice-ask-button,
+#venice-ask-button.venice-light-mode {
+  background-color: #CC0000;
+}
+
+.venice-light-theme #venice-ask-button:hover,
+#venice-ask-button.venice-light-mode:hover {
+  background-color: #990000;
+}
+
+.venice-light-theme #venice-ask-button:disabled,
+#venice-ask-button.venice-light-mode:disabled {
+  background-color: #cccccc;
+  color: #666;
+}
+
+.venice-light-theme #venice-close-button,
+#venice-close-button.venice-light-mode {
+  background-color: #606060;
+  color: white;
+}
+
+.venice-light-theme #venice-close-button:hover,
+#venice-close-button.venice-light-mode:hover {
+  background-color: #404040;
+}
+
+.venice-light-theme #venice-expand-button,
+#venice-expand-button.venice-light-mode {
+  background-color: #2ba640;
+  color: white;
+}
+
+.venice-light-theme #venice-expand-button:hover,
+#venice-expand-button.venice-light-mode:hover {
+  background-color: #1f8830;
+}
+
+.venice-light-theme #venice-expand-button:disabled,
+#venice-expand-button.venice-light-mode:disabled {
+  background-color: #cccccc;
+  color: #666;
+}
+
+.venice-light-theme #venice-summary-results,
+#venice-summary-results.venice-light-mode {
+  background-color: white;
+  border: 1px solid #e5e5e5;
+}
+
+.venice-light-theme #venice-summary-results h3,
+#venice-summary-results.venice-light-mode h3 {
+  color: #0F0F0F;
+}
+
+.venice-light-theme #venice-summary-results p,
+#venice-summary-results.venice-light-mode p {
+  color: #0F0F0F;
+}
+
+.venice-light-theme #venice-summary-results .venice-error,
+#venice-summary-results.venice-light-mode .venice-error {
+  color: #CC0000;
+}
+
+.venice-light-theme #venice-summary-results:has(p:contains("Loading")),
+#venice-summary-results.venice-light-mode:has(p:contains("Loading")) {
+  background-color: #f8f9fa;
+  color: #666;
+}
+
+/* Normal summary styling */
+.venice-summary {
+  line-height: 1.6;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 14px;
+}
+
+.venice-summary p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #0F0F0F;
+}
+
+.venice-summary p:last-child {
+  margin-bottom: 0;
+}
+
+/* Dark mode normal summary styles */
+.venice-dark-theme .venice-summary p,
+.venice-dark-mode .venice-summary p {
+  color: #aaa;
+}
+
+/* Light mode normal summary styles */
+.venice-light-theme .venice-summary p,
+.venice-light-mode .venice-summary p {
+  color: #0F0F0F;
+}
+
+/* Expanded summary styling */
+.venice-expanded-summary {
+  line-height: 1.6;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 14px;
+}
+
+.venice-expanded-summary h4 {
+  margin: 16px 0 8px;
+  color: #0F0F0F;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.venice-expanded-summary p {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.venice-expanded-summary ul {
+  margin: 10px 0;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+.venice-expanded-summary li {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.venice-expanded-summary strong {
+  font-weight: 600;
+}
+
+/* Dark mode expanded summary styles */
+.venice-dark-theme .venice-expanded-summary h4,
+.venice-dark-mode .venice-expanded-summary h4 {
+  color: #fff;
+}
+
+.venice-dark-theme .venice-expanded-summary,
+.venice-dark-mode .venice-expanded-summary {
+  color: #aaa;
+}
+
+/* Light mode expanded summary styles */
+.venice-light-theme .venice-expanded-summary h4,
+.venice-light-mode .venice-expanded-summary h4 {
+  color: #0F0F0F;
+}
+
+.venice-light-theme .venice-expanded-summary,
+.venice-light-mode .venice-expanded-summary {
+  color: #0F0F0F;
+} 
