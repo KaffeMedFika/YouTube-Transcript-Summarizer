@@ -5,17 +5,70 @@
 document.addEventListener('DOMContentLoaded', initExtension);
 window.addEventListener('load', initExtension);
 window.addEventListener('yt-navigate-finish', initExtension);
+window.addEventListener('popstate', initExtension); // Handle browser back/forward navigation
+
+// Add URL change detection using History API
+let lastUrl = location.href;
+new MutationObserver(() => {
+  const url = location.href;
+  if (url !== lastUrl) {
+    lastUrl = url;
+    // YouTube has navigated to a new page
+    if (isYouTubeVideoPage()) {
+      console.log('YouTube navigation detected to video page');
+      // Delay slightly to ensure YouTube's UI has updated
+      setTimeout(initExtension, 1000);
+    }
+  }
+}).observe(document, {subtree: true, childList: true});
+
+// Override YouTube's pushState and replaceState to detect navigation
+const originalPushState = history.pushState;
+history.pushState = function() {
+  originalPushState.apply(this, arguments);
+  if (isYouTubeVideoPage()) {
+    console.log('YouTube pushState detected to video page');
+    setTimeout(initExtension, 1000);
+  }
+};
+
+const originalReplaceState = history.replaceState;
+history.replaceState = function() {
+  originalReplaceState.apply(this, arguments);
+  if (isYouTubeVideoPage()) {
+    console.log('YouTube replaceState detected to video page');
+    setTimeout(initExtension, 1000);
+  }
+};
 
 // Main initialization function
 function initExtension() {
   // Check if we're on a YouTube video page
   if (!isYouTubeVideoPage()) return;
 
+  console.log('Initializing extension on YouTube video page');
+
+  // Remove any existing extension elements to prevent duplicates
+  removeExistingElements();
+  
   // Add our UI once the video info has loaded
   waitForVideoInfo().then(() => {
     addSummaryButton();
     checkAndApplyTheme();
   });
+}
+
+// Function to remove any existing extension elements to prevent duplicates
+function removeExistingElements() {
+  const existingContainer = document.querySelector('#venice-summary-container');
+  if (existingContainer) {
+    existingContainer.remove();
+  }
+  
+  const existingResults = document.querySelector('#venice-summary-results');
+  if (existingResults && existingResults.parentElement) {
+    existingResults.parentElement.remove();
+  }
 }
 
 // Check if the current URL is a YouTube video page
@@ -45,6 +98,12 @@ function waitForVideoInfo() {
       childList: true,
       subtree: true
     });
+    
+    // Failsafe: resolve after 3 seconds even if title not found
+    setTimeout(() => {
+      observer.disconnect();
+      resolve();
+    }, 3000);
   });
 }
 
@@ -203,11 +262,21 @@ function observeYouTubeThemeChanges() {
 
 // Add the "Get Summary" button below the video player
 function addSummaryButton() {
+  // Check if we need to wait for the target element to be ready
+  const targetElement = document.querySelector('#below');
+  if (!targetElement) {
+    console.log('Target element not ready, waiting...');
+    setTimeout(addSummaryButton, 500);
+    return;
+  }
+
   // If our button already exists, don't add it again
   if (document.querySelector('#venice-summary-container')) {
     checkAndApplyTheme(); // Ensure theme is applied even if container already exists
     return;
   }
+
+  console.log('Adding summary button to page');
 
   // Create container for our UI (initially it won't have styling)
   const container = document.createElement('div');
@@ -307,7 +376,6 @@ function addSummaryButton() {
   resultsContainer.appendChild(resultsArea);
   
   // Insert container below video info section
-  const targetElement = document.querySelector('#below');
   if (targetElement) {
     targetElement.prepend(resultsContainer);
     targetElement.prepend(container);
