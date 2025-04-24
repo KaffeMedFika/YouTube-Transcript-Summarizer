@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "YouTube Transcript Summarizer",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Extracts and summarizes YouTube video transcripts using Venice AI",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage"],
   "host_permissions": [
     "https://www.youtube.com/*",
     "https://api.venice.ai/*"
