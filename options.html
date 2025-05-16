@@ -10,11 +10,15 @@
       max-width: 600px;
       margin: 0 auto;
       line-height: 1.5;
+      color: #333;
+      background-color: #f9f9f9;
     }
     h1 {
       color: #CC0000;
       font-size: 24px;
       margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
     }
     .form-group {
       margin-bottom: 20px;
@@ -22,31 +26,84 @@
     label {
       display: block;
       font-weight: bold;
+      margin-bottom: 10px;
+      color: #555;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: white;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #4285F4;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(66,133,244,0.2);
+    }
+    .options-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-bottom: 5px;
     }
-    input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
+    .option-card {
+      flex: 1;
+      min-width: 140px;
+      position: relative;
+      cursor: pointer;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      transition: all 0.2s ease;
+      background-color: white;
+    }
+    .option-card:hover {
+      border-color: #aaa;
+      background-color: #f5f5f5;
+    }
+    .option-card.selected {
+      border-color: #4285F4;
+      background-color: #e8f0fe;
+    }
+    .option-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .option-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .option-description {
+      font-size: 12px;
+      color: #666;
+      display: block;
     }
     button {
       background-color: #4285F4;
       color: white;
       border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
+      padding: 12px 20px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 16px;
+      font-weight: 500;
+      width: 100%;
+      transition: background-color 0.2s;
     }
     button:hover {
       background-color: #3367D6;
     }
     .status {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 4px;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
     }
     .success {
       background-color: #E6F4EA;
@@ -58,28 +115,55 @@
     }
     .instructions {
       background-color: #F1F3F4;
-      padding: 15px;
-      border-radius: 4px;
+      padding: 18px;
+      border-radius: 8px;
       margin-top: 30px;
     }
     .instructions h2 {
       margin-top: 0;
       font-size: 18px;
+      color: #444;
     }
     .instructions ol {
       padding-left: 20px;
     }
-    .theme-options {
-      display: flex;
-      gap: 15px;
+    .instructions li {
+      margin-bottom: 8px;
     }
-    .theme-option {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
+    .section-title {
+      margin-bottom: 12px;
+      color: #555;
     }
-    .theme-option input {
-      margin-right: 5px;
+    .api-key-container {
+      display: flex;
+      position: relative;
+    }
+    .api-key-container input {
+      flex: 1;
+      border-radius: 6px 0 0 6px;
+    }
+    .toggle-button {
+      width: auto;
+      padding: 10px 15px;
+      border-radius: 0 6px 6px 0;
+      background-color: #f0f0f0;
+      color: #555;
+      border-left: none;
+      font-size: 14px;
+      transition: all 0.2s;
+      font-weight: normal;
+    }
+    .toggle-button:hover {
+      background-color: #e3e3e3;
+    }
+    .toggle-button .hide-text {
+      display: none;
+    }
+    .toggle-button.showing .show-text {
+      display: none;
+    }
+    .toggle-button.showing .hide-text {
+      display: inline;
     }
   </style>
 </head>
@@ -88,25 +172,53 @@
   
   <div class="form-group">
     <label for="apiKey">Venice AI API Key:</label>
-    <input type="text" id="apiKey" placeholder="Enter your Venice AI API key">
+    <div class="api-key-container">
+      <input type="password" id="apiKey" placeholder="Enter your Venice AI API key">
+      <button type="button" id="toggleApiKey" class="toggle-button">
+        <span class="show-text">Show</span>
+        <span class="hide-text">Hide</span>
+      </button>
+    </div>
   </div>
   
   <div class="form-group">
-    <label>Theme Settings:</label>
-    <div class="theme-options">
-      <label class="theme-option">
-        <input type="radio" name="theme" value="auto" checked> Auto (Match YouTube)
+    <h3 class="section-title">Theme Settings</h3>
+    <div class="options-container theme-options">
+      <label class="option-card" for="theme-auto">
+        <input type="radio" id="theme-auto" name="theme" value="auto" checked>
+        <span class="option-title">Auto</span>
+        <span class="option-description">Match YouTube's theme</span>
       </label>
-      <label class="theme-option">
-        <input type="radio" name="theme" value="light"> Light
+      <label class="option-card" for="theme-light">
+        <input type="radio" id="theme-light" name="theme" value="light">
+        <span class="option-title">Light</span>
+        <span class="option-description">Always use light mode</span>
       </label>
-      <label class="theme-option">
-        <input type="radio" name="theme" value="dark"> Dark
+      <label class="option-card" for="theme-dark">
+        <input type="radio" id="theme-dark" name="theme" value="dark">
+        <span class="option-title">Dark</span>
+        <span class="option-description">Always use dark mode</span>
       </label>
     </div>
   </div>
   
-  <button id="saveButton">Save</button>
+  <div class="form-group">
+    <h3 class="section-title">AI Model</h3>
+    <div class="options-container model-options">
+      <label class="option-card" for="model-small">
+        <input type="radio" id="model-small" name="model" value="mistral-31-24b" checked>
+        <span class="option-title">Mistral 31B 24B</span>
+        <span class="option-description">Faster, less smart, uses less Venice credits/VCU, 128k context window.</span>
+      </label>
+      <label class="option-card" for="model-large">
+        <input type="radio" id="model-large" name="model" value="qwen3-235b">
+        <span class="option-title">Qwen 3 235B</span>
+        <span class="option-description">Slower, smarter, uses more Venice credits/VCU, 32k context window.</span>
+      </label>
+    </div>
+  </div>
+  
+  <button id="saveButton">Save Settings</button>
   
   <div id="status" class="status" style="display: none;"></div>
   
@@ -117,7 +229,7 @@
       <li>Navigate to your account settings or API section</li>
       <li>Generate a new API key</li>
       <li>Copy the API key and paste it into the field above</li>
-      <li>Click "Save" to store your API key</li>
+      <li>Click "Save Settings" to store your API key</li>
     </ol>
     <p><strong>Note:</strong> Your API key is stored securely in your browser's local storage and is only used to make requests to the Venice AI API.</p>
   </div>

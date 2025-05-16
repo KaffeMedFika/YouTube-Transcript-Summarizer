@@ -13,14 +13,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           return;
         }
 
-        // Call Venice AI API with the transcript
-        summarizeTranscript(apiKey, request.transcript)
-          .then(summary => {
-            sendResponse({ summary });
+        // Get the selected model
+        getSelectedModel()
+          .then(model => {
+            // Call Venice AI API with the transcript
+            summarizeTranscript(apiKey, request.transcript, model)
+              .then(summary => {
+                sendResponse({ summary });
+              })
+              .catch(error => {
+                console.error('Error calling Venice AI API:', error);
+                sendResponse({ error: error.message || 'Failed to generate summary' });
+              });
           })
           .catch(error => {
-            console.error('Error calling Venice AI API:', error);
-            sendResponse({ error: error.message || 'Failed to generate summary' });
+            console.error('Error getting model:', error);
+            sendResponse({ error: 'Failed to get model preference' });
           });
       })
       .catch(error => {
@@ -42,14 +50,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           return;
         }
 
-        // Call Venice AI API with the transcript for expanded summary
-        expandDetailedSummary(apiKey, request.transcript)
-          .then(expandedSummary => {
-            sendResponse({ expandedSummary });
+        // Get the selected model
+        getSelectedModel()
+          .then(model => {
+            // Call Venice AI API with the transcript for expanded summary
+            expandDetailedSummary(apiKey, request.transcript, model)
+              .then(expandedSummary => {
+                sendResponse({ expandedSummary });
+              })
+              .catch(error => {
+                console.error('Error calling Venice AI API:', error);
+                sendResponse({ error: error.message || 'Failed to generate expanded summary' });
+              });
           })
           .catch(error => {
-            console.error('Error calling Venice AI API:', error);
-            sendResponse({ error: error.message || 'Failed to generate expanded summary' });
+            console.error('Error getting model:', error);
+            sendResponse({ error: 'Failed to get model preference' });
           });
       })
       .catch(error => {
@@ -71,14 +87,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           return;
         }
 
-        // Call Venice AI API with the question and transcript
-        askAboutTranscript(apiKey, request.question, request.transcript)
-          .then(answer => {
-            sendResponse({ answer });
+        // Get the selected model
+        getSelectedModel()
+          .then(model => {
+            // Call Venice AI API with the question and transcript
+            askAboutTranscript(apiKey, request.question, request.transcript, model)
+              .then(answer => {
+                sendResponse({ answer });
+              })
+              .catch(error => {
+                console.error('Error calling Venice AI API:', error);
+                sendResponse({ error: error.message || 'Failed to answer question' });
+              });
           })
           .catch(error => {
-            console.error('Error calling Venice AI API:', error);
-            sendResponse({ error: error.message || 'Failed to answer question' });
+            console.error('Error getting model:', error);
+            sendResponse({ error: 'Failed to get model preference' });
           });
       })
       .catch(error => {
@@ -104,8 +128,22 @@ function getVeniceApiKey() {
   });
 }
 
+// Get the selected model from storage
+function getSelectedModel() {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get('model', (data) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        // Default to mistral-31-24b if no model is selected
+        resolve(data.model || 'mistral-31-24b');
+      }
+    });
+  });
+}
+
 // Call Venice AI API to summarize the transcript
-async function summarizeTranscript(apiKey, transcript) {
+async function summarizeTranscript(apiKey, transcript, model) {
   try {
     // Prepare request options following the provided format
     const options = {
@@ -116,7 +154,8 @@ async function summarizeTranscript(apiKey, transcript) {
       },
       body: JSON.stringify({
         venice_parameters: {
-          include_venice_system_prompt: true
+          include_venice_system_prompt: true,
+          "disable_thinking": true
         },
         frequency_penalty: 0,
         presence_penalty: 0,
@@ -124,7 +163,7 @@ async function summarizeTranscript(apiKey, transcript) {
         temperature: 0.15,
         top_p: 0.9,
         parallel_tool_calls: true,
-        model: 'llama-3.3-70b',
+        model: model,
         messages: [
           {
             role: 'user',
@@ -157,7 +196,7 @@ async function summarizeTranscript(apiKey, transcript) {
 }
 
 // Call Venice AI API to create an expanded, detailed summary
-async function expandDetailedSummary(apiKey, transcript) {
+async function expandDetailedSummary(apiKey, transcript, model) {
   try {
     // Prepare request options for detailed analysis
     const options = {
@@ -168,7 +207,8 @@ async function expandDetailedSummary(apiKey, transcript) {
       },
       body: JSON.stringify({
         venice_parameters: {
-          include_venice_system_prompt: true
+          include_venice_system_prompt: true,
+          "disable_thinking": true
         },
         frequency_penalty: 0,
         presence_penalty: 0,
@@ -176,7 +216,7 @@ async function expandDetailedSummary(apiKey, transcript) {
         temperature: 0.25,
         top_p: 0.9,
         parallel_tool_calls: true,
-        model: 'llama-3.3-70b',
+        model: model,
         messages: [
           {
             role: 'system',
@@ -213,7 +253,7 @@ async function expandDetailedSummary(apiKey, transcript) {
 }
 
 // Call Venice AI API to answer questions about the transcript
-async function askAboutTranscript(apiKey, question, transcript) {
+async function askAboutTranscript(apiKey, question, transcript, model) {
   try {
     // Prepare request options following the provided format
     const options = {
@@ -224,7 +264,8 @@ async function askAboutTranscript(apiKey, question, transcript) {
       },
       body: JSON.stringify({
         venice_parameters: {
-          include_venice_system_prompt: true
+          include_venice_system_prompt: true,
+          "disable_thinking": true
         },
         frequency_penalty: 0,
         presence_penalty: 0,
@@ -232,7 +273,7 @@ async function askAboutTranscript(apiKey, question, transcript) {
         temperature: 0.3,
         top_p: 0.9,
         parallel_tool_calls: true,
-        model: 'llama-3.3-70b',
+        model: model,
         messages: [
           {
             role: 'system',
