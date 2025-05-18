@@ -288,7 +288,7 @@ function addSummaryButton() {
   container.style.display = 'flex';
   container.style.justifyContent = 'space-between';
   container.style.alignItems = 'center';
-  container.style.marginRight = '20px';
+  container.style.marginRight = '0px';
   
   // Create left side container for summary button
   const leftContainer = document.createElement('div');
@@ -372,7 +372,7 @@ function addSummaryButton() {
   
   // Add results area after the flex container for buttons
   const resultsContainer = document.createElement('div');
-  resultsContainer.style.marginRight = '20px';
+  resultsContainer.style.marginRight = '0px';
   resultsContainer.appendChild(resultsArea);
   
   // Insert container below video info section
@@ -453,12 +453,15 @@ function addCloseButton(resultsArea) {
 // Create a function to apply formatting to the normal summary
 function formatSummary(text) {
   // Check if already contains HTML formatting
-  if (text.includes('<p>') || text.includes('<br>') || text.includes('<li>')) {
+  if (text.includes('<h') || text.includes('<p>') || text.includes('<li>')) {
     return text;
   }
+
+  // Convert bold markdown to HTML tags
+  let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   
   // Replace line breaks with <br> if present
-  let formatted = text.replace(/\n/g, '<br>');
+  formatted = formatted.replace(/\n/g, '<br>');
   
   // Add paragraph spacing by detecting sentence endings
   formatted = formatted.replace(/([.!?])\s+/g, '$1</p><p>');
@@ -499,9 +502,9 @@ async function handleSummaryRequest() {
     resultsContainer.style.marginTop = '10px';
   }
   
-  // Show "Loading..." message
+  // Show "Loading..." message with spinner
   resultsArea.style.display = 'block';
-  resultsArea.innerHTML = '<p>Loading transcript and generating summary...</p>';
+  resultsArea.innerHTML = '<div class="venice-loading-spinner"></div><p class="venice-loading-text">Loading transcript and generating summary...</p>';
   
   // Disable buttons during processing
   button.disabled = true;
@@ -596,9 +599,9 @@ async function handleAskRequest() {
     resultsContainer.style.marginTop = '10px';
   }
   
-  // Show "Loading..." message
+  // Show "Loading..." message with spinner
   resultsArea.style.display = 'block';
-  resultsArea.innerHTML = '<p>Getting answer to your question...</p>';
+  resultsArea.innerHTML = '<div class="venice-loading-spinner"></div><p class="venice-loading-text">Getting answer to your question...</p>';
   
   // Disable input and buttons during processing
   askInput.disabled = true;
@@ -889,9 +892,9 @@ async function handleExpandSummary(event) {
   if (askButton) askButton.disabled = true;
   if (askInput) askInput.disabled = true;
   
-  // Show loading message
+  // Show loading message with spinner
   const originalContent = resultsArea.innerHTML;
-  resultsArea.innerHTML = '<p>Generating detailed analysis of the video content...</p>';
+  resultsArea.innerHTML = '<div class="venice-loading-spinner"></div><p class="venice-loading-text">Generating detailed analysis of the video content...</p>';
   
   try {
     // Get the video ID from the button data attribute
@@ -956,8 +959,11 @@ function formatExpandedSummary(text) {
     return text;
   }
   
+  // Convert bold markdown to HTML tags first
+  let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
   // Replace markdown style headers with HTML
-  let formatted = text.replace(/#{1,6}\s+(.*?)(?:\n|$)/g, (match, title) => {
+  formatted = formatted.replace(/#{1,6}\s+(.*?)(?:\n|$)/g, (match, title) => {
     const level = match.trim().indexOf(' ');
     return `<h4>${title}</h4>`;
   });
@@ -968,8 +974,7 @@ function formatExpandedSummary(text) {
   // Replace single line breaks with <br>
   formatted = formatted.replace(/\n/g, '<br>');
   
-  // Handle bold and italic
-  formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // Handle italic
   formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
   
   // Handle bulleted lists

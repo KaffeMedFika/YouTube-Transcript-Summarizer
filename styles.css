@@ -1,6 +1,41 @@
 /* YouTube Transcript Summarizer - Styles */
 /* This CSS file styles the extension's UI elements on YouTube pages */
 
+/* Spinner animation for loading states */
+@keyframes venice-spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.venice-loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(204, 0, 0, 0.2);
+  border-radius: 50%;
+  border-top-color: #CC0000;
+  animation: venice-spinner 1s linear infinite;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.venice-loading-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.venice-dark-theme .venice-loading-spinner,
+.venice-loading-spinner.venice-dark-mode {
+  border-color: rgba(255, 255, 255, 0.1);
+  border-top-color: #CC0000;
+}
+
+.venice-light-theme .venice-loading-spinner,
+.venice-loading-spinner.venice-light-mode {
+  border-color: rgba(0, 0, 0, 0.1);
+  border-top-color: #CC0000;
+}
+
 /* Container for all our extension elements - Light mode (default) */
 #venice-summary-container {
   margin: 10px 0;
@@ -11,7 +46,7 @@
   font-family: 'Roboto', Arial, sans-serif;
   max-width: 100%;
   box-sizing: border-box;
-  width: calc(100% - 20px);
+  width: 100%;
 }
 
 /* Style for the "Get Summary" button */
