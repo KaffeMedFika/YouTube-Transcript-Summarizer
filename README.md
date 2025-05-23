@@ -17,7 +17,10 @@ A powerful Chrome extension that uses Venice AI to summarize YouTube video trans
 ## 📦 Installation
 
 ### Option 1: Chrome Web Store (Recommended)
-[![Install from Chrome Web Store](https://developer.chrome.com/static/docs/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chromewebstore.google.com/detail/youtube-transcript-summar/kjgilndeigblbaddnekobiapfcckaoij)
+
+**[Available in the Chrome Web Store](https://chromewebstore.google.com/detail/youtube-transcript-summar/kjgilndeigblbaddnekobiapfcckaoij)**
+
+![Available in the Chrome Web Store](https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/tbyBjqi7Zu733AAKA5n4.png)
 
 ### Option 2: Manual Installation (Developer Mode)
 
@@ -146,7 +149,7 @@ This project is open source. Please check the repository for license details.
 ---
 
 **Version**: 1.3  
-**Last Updated**: 2024
+**Last Updated**: 2025
 
 If you find this extension useful, please consider:
 - ⭐ Starring the GitHub repository
