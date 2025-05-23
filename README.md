@@ -4,13 +4,11 @@ A powerful Chrome extension that uses Venice AI to summarize YouTube video trans
 
 ![YouTube Transcript Summarizer](icons/icon128.png)
 
-## 🎬 Demo
+## 🎬 See It In Action
 
-See the extension in action! Click the thumbnail below to watch a quick demo:
+**[Watch the Demo Video](https://x.com/KaffeMedFika/status/1925800533203296698)** 📺
 
-[![YouTube Transcript Summarizer Demo](https://img.youtube.com/vi/demo-video-id/maxresdefault.jpg)](https://fixupx.com/KaffeMedFika/status/1925800533203296698)
-
-*Or [click here for the full demo video](https://x.com/KaffeMedFika/status/1925800533203296698)*
+See how the extension works in real-time with actual YouTube videos!
 
 ## 🚀 Features
 
