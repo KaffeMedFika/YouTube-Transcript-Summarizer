@@ -6,14 +6,11 @@ A powerful Chrome extension that uses Venice AI to summarize YouTube video trans
 
 ## 🎬 Demo
 
-See the extension in action! Watch how easy it is to get AI-powered summaries and ask questions about any YouTube video:
+See the extension in action! Click the thumbnail below to watch a quick demo:
 
-<video width="100%" controls>
-  <source src="Demo.mp4" type="video/mp4">
-  Your browser does not support the video tag. You can <a href="Demo.mp4">download the demo video</a> instead.
-</video>
+[![YouTube Transcript Summarizer Demo](https://img.youtube.com/vi/demo-video-id/maxresdefault.jpg)](https://fixupx.com/KaffeMedFika/status/1925800533203296698)
 
-*The demo shows the extension summarizing a YouTube video, asking questions about the content, and expanding for detailed analysis - all powered by Venice AI.*
+*Or [click here for the full demo video](https://x.com/KaffeMedFika/status/1925800533203296698)*
 
 ## 🚀 Features
 
